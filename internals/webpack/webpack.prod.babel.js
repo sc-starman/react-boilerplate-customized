@@ -7,13 +7,14 @@ const { HashedModuleIdsPlugin } = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
+console.log(path.join(process.cwd(), 'src/index.js'))
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
 
   // In production, we skip all hot-reloading stuff
   entry: [
     require.resolve('react-app-polyfill/ie11'),
-    path.join(process.cwd(), 'src/index.js'),
+    path.join(process.cwd(), 'app/index.js'),
   ],
 
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
@@ -68,7 +69,7 @@ module.exports = require('./webpack.base.babel')({
   plugins: [
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: 'app/index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -123,17 +124,6 @@ module.exports = require('./webpack.base.babel')({
       theme_color: '#b1624d',
       inject: true,
       ios: true,
-      icons: [
-        {
-          src: path.resolve('src/assets/images/icon-512x512.png'),
-          sizes: [72, 96, 128, 144, 192, 384, 512],
-        },
-        {
-          src: path.resolve('src/assets/images/icon-512x512.png'),
-          sizes: [120, 152, 167, 180],
-          ios: true,
-        },
-      ],
     }),
 
     new HashedModuleIdsPlugin({
